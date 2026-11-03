@@ -10,16 +10,11 @@ Steps :
 
 */
 
-import { test, expect } from '@playwright/test'
-import { Homepage } from '../pages/homePage'
-import { RegisterPage } from '../pages/registerPage'
+import { test, expect } from '../Fixtures/test_fixtures'
 import { randomUtil } from '../utils/randomDataGenerator'
-import { TestConfig } from '../test.config'
 
-let homePage: Homepage;
-let registerPage: RegisterPage;
 
-test.beforeEach(async ({ page }) => {
+/*test.beforeEach(async ({ page, registerPage,homePage}) => {
     const config = new TestConfig(); //object for testconfig file
     await page.goto(config.appUrl);
     homePage = new Homepage(page);
@@ -28,11 +23,11 @@ test.beforeEach(async ({ page }) => {
 
 test.afterEach(async ({ page }) => {
     await page.close();
-})
+})*/
 
 
 
-test('User registration test @sanity', async () => {
+test('User registration test @sanity', async ({ page, registerPage,homePage}) => {
 
 
 
