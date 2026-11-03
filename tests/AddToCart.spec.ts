@@ -1,29 +1,9 @@
-import { test, expect } from '@playwright/test'
-import { Homepage } from '../pages/homePage'
-import { SearchResultsPage } from '../pages/searchResultsPage'
+import { test, expect } from '../Fixtures/test_fixtures'
 import { TestConfig } from '../test.config'
-import { ProductPage } from '../pages/productPage'
 
-let homePage: Homepage;
-let searchResultsPage: SearchResultsPage;
-let productPage : ProductPage;
-let config : TestConfig;
+let config = new TestConfig();
 
-test.beforeEach(async ({ page }) => {
-    config = new TestConfig(); //object for testconfig file
-    await page.goto(config.appUrl);
-    homePage = new Homepage(page);
-    searchResultsPage = new SearchResultsPage(page);
-    productPage = new ProductPage(page);
-})
-
-test.afterEach(async ({ page }) => {
-    await page.close();
-})
-
-
-
-test('Add to cart test @sanity', async () => {
+test('Add to cart test @sanity', async ({page,homePage,searchResultsPage , productPage}) => {
     await homePage.Searchforproduct(config.productName);
 
     await homePage.ClickSearchButton();

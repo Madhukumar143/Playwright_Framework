@@ -1,31 +1,13 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '../Fixtures/test_fixtures'
 import { TestConfig } from '../test.config'
-import { Homepage } from '../pages/homePage'
-import { SearchResultsPage } from '../pages/searchResultsPage';
 
 
 // Declare Shared variables 
 
 let config: TestConfig;
-let homePage: Homepage;
-let searchResultsPage: SearchResultsPage;
 
-
-test.beforeEach(async ({ page }) => {
-    config = new TestConfig();
-    await page.goto(config.appUrl);
-
-
-    homePage = new Homepage(page);
-    searchResultsPage = new SearchResultsPage(page);
-});
-
-test.afterEach(async ({ page }) => {
-    await page.waitForTimeout(3000);
-    await page.close();
-});
-
-test('Product search test @sanity', async () => {
+test('Product search test @sanity', async ({homePage,searchResultsPage}) => {
+    config = new TestConfig()
     const productName = config.productName;
 
     await homePage.Searchforproduct(productName);

@@ -1,37 +1,14 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '../Fixtures/test_fixtures'
 import { TestConfig } from '../test.config'
-import { Homepage } from '../pages/homePage'
-import { LoginPage } from '../pages/loginPage'
-import { MyAccountPage } from '../pages/myAccountPage'
-import { LogoutPage } from '../pages/logoutPage'
 
 // Declare Shared variables 
 
 let config: TestConfig;
-let homePage: Homepage;
-let loginPage: LoginPage;
-let myAccountPage: MyAccountPage;
-let logoutPage: LogoutPage;
 
-
-test.beforeEach(async ({ page }) => {
-    config = new TestConfig();
-    await page.goto(config.appUrl);
-
-    //initialize Page Objects
-    homePage = new Homepage(page);
-    loginPage = new LoginPage(page);
-    myAccountPage = new MyAccountPage(page);
-    //logoutPage = new LogoutPage(page);
-});
-
-test.afterEach(async ({ page }) => {
-    await page.close();
-});
-
-test("User Logount test @regression", async () => {
+test("User Logount test @regression", async ({homePage,loginPage,myAccountPage,logoutPage}) => {
     await homePage.ClickmyAccount();
     await homePage.ClickLogin();
+    config = new TestConfig();
 
     await loginPage.login(config.email, config.password);
 

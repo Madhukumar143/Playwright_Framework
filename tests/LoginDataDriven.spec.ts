@@ -1,34 +1,27 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/loginPage';
-import { MyAccountPage } from '../pages/myAccountPage';
+import { test, expect } from '../Fixtures/test_fixtures';
 import { Dataprovider } from '../utils/dataProvider';
 import { TestConfig } from '../test.config';
-import { Homepage } from '../pages/homePage';
 
 
 //Load JSON test data logindata.json
-
 const jsonPath="testdata/logindata.json";
 const jsonTestData=Dataprovider.getTestdataFromjson(jsonPath);
 
 
 for(const data of jsonTestData)
 {
-   test(`Login Test with JSON Data: ${data.testName} @datadriven`, async({page})=>{
+   test(`Login Test with JSON Data: ${data.testName} @datadriven`, async({page,loginPage,myAccountPage,homePage})=>{
 
         const config = new TestConfig(); // create instance
         await page.goto(config.appUrl);    // getting appURL from test.config.ts file
 
-        const homePage = new Homepage(page);
         await homePage.ClickmyAccount()
         await homePage.ClickLogin();
 
-        const loginPage = new LoginPage(page);
         await loginPage.login(data.email, data.password);
 
         if(data.expected.toLowerCase()==='success')
         {
-            const myAccountPage=new MyAccountPage(page);
             const isLoggedIn=await myAccountPage.isMyAccountPageExists();
             expect(isLoggedIn).toBeTruthy();
 
@@ -39,10 +32,7 @@ for(const data of jsonTestData)
             expect(errorMessage).toContain('Warning: No match');
         }
     })
-
 }
-
-
 
 //Load CSV test data logindata.json
 
@@ -52,21 +42,18 @@ const csvTestData = Dataprovider.getTestDataFromCsv(csvPath);
 
 for(const data of csvTestData)
 {
-   test(`Login Test with CSV Data: ${data.testName} @datadriven`, async({page})=>{
+   test(`Login Test with CSV Data: ${data.testName} @datadriven`, async({page,loginPage,myAccountPage,homePage})=>{
 
         const config = new TestConfig(); // create instance
         await page.goto(config.appUrl);    // getting appURL from test.config.ts file
 
-        const homePage = new Homepage(page);
         await homePage.ClickmyAccount();
         await homePage.ClickLogin();
 
-        const loginPage = new LoginPage(page);
         await loginPage.login(data.email, data.password);
 
         if(data.expected.toLowerCase()==='success')
         {
-            const myAccountPage=new MyAccountPage(page);
             const isLoggedIn=await myAccountPage.isMyAccountPageExists();
             expect(isLoggedIn).toBeTruthy();
 

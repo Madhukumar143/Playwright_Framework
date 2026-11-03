@@ -11,7 +11,6 @@ import { CheckoutPage } from '../pages/CheckoutPage';
 import { MyAccountPage } from '../pages/myAccountPage';
 import { TestConfig } from '../test.config'
 
-
 type PageFixtures = {
     appSetup : void;
     loginPage: LoginPage;
@@ -80,6 +79,7 @@ export const test = base.extend<PageFixtures>({
     myAccountPage: async ({ page }, use) => {
         await use(new MyAccountPage(page));
     },
+    
 
 });
 
