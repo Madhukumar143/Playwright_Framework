@@ -5,7 +5,8 @@ export class Dataprovider{
 
     static getTestdataFromjson(filePath:string)
 {
-    let data : any = JSON.parse(fs.readFileSync(filePath,'utf8'));
+    let data : any = JSON.parse
+    (fs.readFileSync(filePath,'utf8'));
     return data;
 }
 
