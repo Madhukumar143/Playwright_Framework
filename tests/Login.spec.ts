@@ -17,7 +17,7 @@ test('User login test @master', async ({homePage , loginPage,myAccountPage}) => 
    // alternativelu
    // await loginPage.Login(config.email.config.password);
 
-
+  //comment added
   const isLoggedin =  await myAccountPage .isMyAccountPageExists();
   expect(isLoggedin).toBeTruthy();
 
